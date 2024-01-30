@@ -34,5 +34,11 @@ public class Main {
                 e.printStackTrace();
             }
         }
+        if (responseAction.equals("consult")) {
+            System.out.println("Insert purchase class");
+            String classPurchase = sc.next();
+            Purchase.getPurchase(classPurchase);
+        } else System.out.println("Please, only insert the informed options!");
+        sc.close();
     }
 }
