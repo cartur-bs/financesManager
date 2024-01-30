@@ -2,6 +2,7 @@ package org.example.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Purchase {
@@ -35,5 +36,29 @@ public class Purchase {
         em.persist(newPurchase);
         em.getTransaction().commit();
         em.close();
+    }
+
+    public static void getPurchase(String purchaseClass) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
+        EntityManager em = emf.createEntityManager();
+        String hql = "FROM Purchase WHERE purchaseClass = :purchaseClass";
+        try {
+            em.getTransaction().begin();
+            Query hqlQuery = em.createQuery(hql);
+            hqlQuery.setParameter("purchaseClass", purchaseClass);
+            List<Purchase> resultList = hqlQuery.getResultList();
+            em.getTransaction().commit();
+            for (Purchase entity : resultList) {
+                System.out.println(entity);
+            }
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
     }
 }
