@@ -1,9 +1,6 @@
 package org.example.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -29,5 +26,14 @@ public class Purchase {
     public String toString() {
         return "Purchase{ " + "id= " + id + ", purchaseDate= " + purchaseDate + ", purchaseClass= " +
                 purchaseClass + ", purchasePrice= " + purchasePrice + '}';
+    }
+
+    public void insertPurchase(Purchase newPurchase) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(newPurchase);
+        em.getTransaction().commit();
+        em.close();
     }
 }
