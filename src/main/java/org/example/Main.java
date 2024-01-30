@@ -5,11 +5,13 @@ import org.example.entities.Purchase;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+      //  Locale USLocale = new Locale("eng", "EUA");
+        Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println("Would you like to add a new purchase or consult one?(add/consult)");
 
