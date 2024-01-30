@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-      //  Locale USLocale = new Locale("eng", "EUA");
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println("Would you like to add a new purchase or consult one?(add/consult)");
@@ -32,6 +31,7 @@ public class Main {
             try {
                 Purchase newPurchase = new Purchase(null, formatedDate, purchaseClassScanner, purchaseValueScanner);
                 newPurchase.insertPurchase(newPurchase);
+                return;
             } catch (InputMismatchException e) {
                 e.printStackTrace();
             }
@@ -40,7 +40,9 @@ public class Main {
             System.out.println("Insert purchase class");
             String classPurchase = sc.next();
             Purchase.getPurchase(classPurchase);
-        } else System.out.println("Please, only insert the informed options!");
+        } else {
+            System.out.println("Please, only insert the informed options!");
+        }
         sc.close();
     }
 }
