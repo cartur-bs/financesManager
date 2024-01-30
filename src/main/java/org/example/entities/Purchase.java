@@ -2,6 +2,7 @@ package org.example.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,7 @@ public class Purchase {
         em.close();
     }
 
-    public static void getPurchase(String purchaseClass) {
+    public static void getPurchaseByClass(String purchaseClass) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
         EntityManager em = emf.createEntityManager();
         String hql = "FROM Purchase WHERE purchaseClass = :purchaseClass";
@@ -46,6 +47,29 @@ public class Purchase {
             em.getTransaction().begin();
             Query hqlQuery = em.createQuery(hql);
             hqlQuery.setParameter("purchaseClass", purchaseClass);
+            List<Purchase> resultList = hqlQuery.getResultList();
+            em.getTransaction().commit();
+            for (Purchase entity : resultList) {
+                System.out.println(entity);
+            }
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void getPurchaseByDate(LocalDate purchaseDate) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
+        EntityManager em = emf.createEntityManager();
+        String hql = "FROM Purchase WHERE purchaseDate = :purchaseDate";
+        try {
+            em.getTransaction().begin();
+            Query hqlQuery = em.createQuery(hql);
+            hqlQuery.setParameter("purchaseDate", purchaseDate);
             List<Purchase> resultList = hqlQuery.getResultList();
             em.getTransaction().commit();
             for (Purchase entity : resultList) {
