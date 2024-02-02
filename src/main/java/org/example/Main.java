@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.entities.Purchase;
+import org.example.entities.User;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,16 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
+        System.out.println("Hello, would you like to create a new profile or log in?(create/log in)");
+        String responseActionAccess = sc.nextLine().toLowerCase();
+        if(responseActionAccess.equals("create")){
+            System.out.println("Choose an user name with max. 8 characters and no spaces");
+            String userNameScanner = sc.next();
+            System.out.println("Choose a password with max. 10 characters");
+            String passwordScanner = sc.next();
+            User newUser = new User(userNameScanner, passwordScanner);
+            User.createUser(newUser);
+        }
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println("Would you like to add a new purchase or consult one?(add/consult)");
         String responseAction = sc.next().toLowerCase();
