@@ -15,13 +15,20 @@ public class Main {
         Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         System.out.println("Hello, would you like to create a new profile or log in?(create/log in)");
         String responseActionAccess = sc.nextLine().toLowerCase();
-        if(responseActionAccess.equals("create")){
+        if (responseActionAccess.equals("create")) {
             System.out.println("Choose an user name with max. 8 characters and no spaces");
             String userNameScanner = sc.next();
             System.out.println("Choose a password with max. 10 characters");
             String passwordScanner = sc.next();
-            User newUser = new User(userNameScanner, passwordScanner);
-            User.createUser(newUser);
+            System.out.println("Repeat your password");
+            String passwordScannerConfirmed = sc.next();
+            if (!passwordScanner.equals(passwordScannerConfirmed)) {
+                System.out.println("Please, make sure your passwords are a match.");
+                return;
+            } else {
+                User newUser = new User(userNameScanner, passwordScanner);
+                User.createUser(newUser);
+            }
         }
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println("Would you like to add a new purchase or consult one?(add/consult)");
@@ -48,33 +55,34 @@ public class Main {
             } catch (InputMismatchException e) {
                 System.out.println("Insert a valid value");
                 e.printStackTrace();
-            }}
+            }
+        }
 
-            if (responseAction.equals("consult")) {
-                System.out.println("Consult by class or date?(class/date)");
-                String consultResponse = sc.next().toLowerCase();
-                if (consultResponse.equals("class")) {
-                    System.out.println("Insert purchase class");
-                    String classPurchase = sc.next();
-                    Purchase.getPurchaseByClass(classPurchase);
-                    return;
-                }
-                if (consultResponse.equals("date")) {
-                    System.out.println("Insert the date(dd/MM/yyyy)");
-                    String consultDate = sc.next();
-                    try{
-                        LocalDate consultDateFormatted = LocalDate.parse(consultDate, dateFormat);
-                        Purchase.getPurchaseByDate(consultDateFormatted);
-                    }catch (DateTimeParseException e){
-                        System.out.println("Insert a valid value");
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Please, only insert valid inputs!");
+        if (responseAction.equals("consult")) {
+            System.out.println("Consult by class or date?(class/date)");
+            String consultResponse = sc.next().toLowerCase();
+            if (consultResponse.equals("class")) {
+                System.out.println("Insert purchase class");
+                String classPurchase = sc.next();
+                Purchase.getPurchaseByClass(classPurchase);
+                return;
+            }
+            if (consultResponse.equals("date")) {
+                System.out.println("Insert the date(dd/MM/yyyy)");
+                String consultDate = sc.next();
+                try {
+                    LocalDate consultDateFormatted = LocalDate.parse(consultDate, dateFormat);
+                    Purchase.getPurchaseByDate(consultDateFormatted);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Insert a valid value");
+                    e.printStackTrace();
                 }
             } else {
-                System.out.println("Please, only insert the informed options!");
+                System.out.println("Please, only insert valid inputs!");
             }
+        } else {
+            System.out.println("Please, only insert the informed options!");
+        }
 
         sc.close();
     }
