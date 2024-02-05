@@ -1,10 +1,8 @@
 package org.example.entities;
 
-import org.example.DB.DBProperties;
-
 import javax.persistence.*;
-
 import java.sql.*;
+import java.util.List;
 
 
 @Entity
@@ -29,28 +27,29 @@ public class User {
     }
 
     public static boolean gettingUser(String userName, String password) throws SQLException {
-        Connection con = DBProperties.getConnection();
-        String sql = "SELECT * FROM User WHERE userName = '" + userName + "' AND password = '" + password + "'";
-        Statement st = con.createStatement();
-        ResultSet rst;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
+        EntityManager em = emf.createEntityManager();
+        String hql = "FROM User WHERE userName = :userName AND password = :password";
 
         boolean teste = false;
         try {
-            rst = st.executeQuery(sql);
-            while( rst.next()){
-               String userNameReturned = rst.getString("userName");
-               String passwordReturned = rst.getString("password");
-               int idR = rst.getInt("id");
-                System.out.println(userNameReturned + passwordReturned +idR);
+            em.getTransaction().begin();
+            Query hqlQuery = em.createQuery(hql);
+            hqlQuery.setParameter("userName", userName);
+            hqlQuery.setParameter("password", password);
+            List<User> resultList = hqlQuery.getResultList();
+            em.getTransaction().commit();
+
+            for (User e : resultList) {
+                System.out.println(e);
                 teste = true;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            if(con != null){
-                con.close();
+        }catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
             }
+            e.printStackTrace();
         }
         return teste;
     }

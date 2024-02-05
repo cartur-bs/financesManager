@@ -39,13 +39,12 @@ public class Main {
             String passwordScannerAccess = sc.next();
 
             if (!User.gettingUser(userNameScanner, passwordScannerAccess)) {
-                System.out.println("Wrong user name or password");
+                System.out.println("Wrong user name or password, please try again.");
                 return;
             }
 
             else {
                 System.out.println("Welcome, " + userNameScanner);
-
                 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 System.out.println("Would you like to add a new purchase or consult one?(add/consult)");
                 String responseAction = sc.next().toLowerCase();
@@ -101,8 +100,6 @@ public class Main {
                 }
             }
         }
-
-
         sc.close();
     }
 }
