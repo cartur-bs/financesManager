@@ -40,14 +40,15 @@ public class Purchase {
         em.close();
     }
 
-    public static void getPurchaseByClass(String purchaseClass) {
+    public static void getPurchaseByClass(String purchaseClass, String userName) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
         EntityManager em = emf.createEntityManager();
-        String hql = "FROM Purchase WHERE purchaseClass = :purchaseClass";
+        String hql = "FROM Purchase WHERE purchaseClass = :purchaseClass and userName = :userName";
         try {
             em.getTransaction().begin();
             Query hqlQuery = em.createQuery(hql);
             hqlQuery.setParameter("purchaseClass", purchaseClass);
+            hqlQuery.setParameter("userName", userName);
             List<Purchase> resultList = hqlQuery.getResultList();
             em.getTransaction().commit();
             for (Purchase entity : resultList) {
