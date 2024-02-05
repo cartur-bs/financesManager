@@ -78,6 +78,9 @@ public class Purchase {
             hqlQuery.setParameter("userName", userName);
             List<Purchase> resultList = hqlQuery.getResultList();
             em.getTransaction().commit();
+            if(resultList.isEmpty()){
+                System.out.println("No purchases with this date were found.");
+            }
             for (Purchase entity : resultList) {
                 System.out.println(entity);
             }
