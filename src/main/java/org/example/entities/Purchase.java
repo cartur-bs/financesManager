@@ -64,14 +64,15 @@ public class Purchase {
         }
     }
 
-    public static void getPurchaseByDate(LocalDate purchaseDate) {
+    public static void getPurchaseByDate(LocalDate purchaseDate, String userName) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
         EntityManager em = emf.createEntityManager();
-        String hql = "FROM Purchase WHERE purchaseDate = :purchaseDate";
+        String hql = "FROM Purchase WHERE purchaseDate = :purchaseDate and userName = :userName";
         try {
             em.getTransaction().begin();
             Query hqlQuery = em.createQuery(hql);
             hqlQuery.setParameter("purchaseDate", purchaseDate);
+            hqlQuery.setParameter("userName", userName);
             List<Purchase> resultList = hqlQuery.getResultList();
             em.getTransaction().commit();
             for (Purchase entity : resultList) {

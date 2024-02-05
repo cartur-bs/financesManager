@@ -87,7 +87,7 @@ public class Main {
                         String consultDate = sc.next();
                         try {
                             LocalDate consultDateFormatted = LocalDate.parse(consultDate, dateFormat);
-                            Purchase.getPurchaseByDate(consultDateFormatted);
+                            Purchase.getPurchaseByDate(consultDateFormatted, userNameScanner);
                         } catch (DateTimeParseException e) {
                             System.out.println("Insert a valid value");
                             e.printStackTrace();
