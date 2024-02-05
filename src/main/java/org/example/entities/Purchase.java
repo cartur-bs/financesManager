@@ -12,12 +12,14 @@ public class Purchase {
     private LocalDate purchaseDate;
     private String purchaseClass;
     private double purchasePrice;
+    private String userName;
 
     public Purchase() {
     }
 
-    public Purchase(Integer id, LocalDate purchaseDate, String purchaseClass, double purchasePrice) {
+    public Purchase(Integer id, String userName, LocalDate purchaseDate, String purchaseClass, double purchasePrice) {
         this.id = id;
+        this.userName = userName;
         this.purchaseDate = purchaseDate;
         this.purchaseClass = purchaseClass;
         this.purchasePrice = purchasePrice;
