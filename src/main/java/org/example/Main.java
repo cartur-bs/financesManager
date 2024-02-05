@@ -72,7 +72,7 @@ public class Main {
                         String purchaseClassScanner = sc.next();
                         System.out.println("Insert the value of your purchase(ex.: 10.99)");
                         double purchaseValueScanner = sc.nextDouble();
-                        Purchase newPurchase = new Purchase(null, userNameScanner, formattedDate, purchaseClassScanner, purchaseValueScanner);
+                        Purchase newPurchase = new Purchase(userNameScanner, formattedDate, purchaseClassScanner, purchaseValueScanner);
                         newPurchase.insertPurchase(newPurchase);
                         System.out.println("Insertion completed successfully!");
                         return; //exits the function and doesn't display the else

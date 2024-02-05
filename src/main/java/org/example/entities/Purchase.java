@@ -17,8 +17,7 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(Integer id, String userName, LocalDate purchaseDate, String purchaseClass, double purchasePrice) {
-        this.id = id;
+    public Purchase(String userName, LocalDate purchaseDate, String purchaseClass, double purchasePrice) {
         this.userName = userName;
         this.purchaseDate = purchaseDate;
         this.purchaseClass = purchaseClass;
