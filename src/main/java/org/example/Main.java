@@ -19,17 +19,26 @@ public class Main {
         String responseActionAccess = sc.nextLine().toLowerCase();
         if (responseActionAccess.equals("create")) {
             System.out.println("Choose an user name with max. 8 characters and no spaces");
-            String userNameScanner = sc.next();
+            String userNameScannerCreate = sc.next();
+            if(userNameScannerCreate.length() > 8){
+                System.out.println("Please, insert a valid size of username");
+                return;
+            }
             System.out.println("Choose a password with max. 10 characters");
-            String passwordScanner = sc.next();
+            String passwordScannerCreate = sc.next();
             System.out.println("Repeat your password");
             String passwordScannerConfirmed = sc.next();
-            if (!passwordScanner.equals(passwordScannerConfirmed)) {
+            if(passwordScannerCreate.length() > 10){
+                System.out.println("Please, insert a valid size of password");
+                return;
+            }
+            if (!passwordScannerCreate.equals(passwordScannerConfirmed)) {
                 System.out.println("Please, make sure your passwords are a match.");
                 return;
             } else {
-                User newUser = new User(userNameScanner, passwordScanner);
+                User newUser = new User(userNameScannerCreate, passwordScannerCreate);
                 User.createUser(newUser);
+                System.out.println("Your profile was created, " +userNameScannerCreate +", welcome to finances4U");
             }
         }
         if (responseActionAccess.equals("log in")) {
