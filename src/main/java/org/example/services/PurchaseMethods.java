@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class PurchaseMethods {
+   private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
+    private static EntityManager em = emf.createEntityManager();
     public static void insertPurchase(Purchase newPurchase) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
-        EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         em.persist(newPurchase);
         em.getTransaction().commit();
@@ -20,8 +20,6 @@ public class PurchaseMethods {
     }
 
     public static void getPurchaseByClass(String purchaseClass, String userName) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
-        EntityManager em = emf.createEntityManager();
         String hql = "FROM Purchase WHERE purchaseClass = :purchaseClass and userName = :userName";
         try {
             em.getTransaction().begin();
@@ -47,8 +45,6 @@ public class PurchaseMethods {
     }
 
     public static void getPurchaseByDate(LocalDate purchaseDate, String userName) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
-        EntityManager em = emf.createEntityManager();
         String hql = "FROM Purchase WHERE purchaseDate = :purchaseDate and userName = :userName";
         try {
             em.getTransaction().begin();

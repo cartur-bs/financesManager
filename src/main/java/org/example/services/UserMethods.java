@@ -38,7 +38,6 @@ public class UserMethods {
             em.getTransaction().commit();
 
             for (User e : resultList) {
-                System.out.println(e);
                 teste = true;
             }
         } catch (Exception e) {
