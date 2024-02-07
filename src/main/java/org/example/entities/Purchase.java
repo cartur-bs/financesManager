@@ -29,33 +29,4 @@ public class Purchase {
         return "Purchase{ " + "id= " + id + ", purchaseDate= " + purchaseDate + ", purchaseClass= " +
                 purchaseClass + ", purchasePrice= " + purchasePrice + '}';
     }
-
-
-    public static void getPurchaseByDate(LocalDate purchaseDate, String userName) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
-        EntityManager em = emf.createEntityManager();
-        String hql = "FROM Purchase WHERE purchaseDate = :purchaseDate and userName = :userName";
-        try {
-            em.getTransaction().begin();
-            Query hqlQuery = em.createQuery(hql);
-            hqlQuery.setParameter("purchaseDate", purchaseDate);
-            hqlQuery.setParameter("userName", userName);
-            List<Purchase> resultList = hqlQuery.getResultList();
-            em.getTransaction().commit();
-            if(resultList.isEmpty()){
-                System.out.println("No purchases with this date were found.");
-            }
-            for (Purchase entity : resultList) {
-                System.out.println(entity);
-            }
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-
-    }
 }
