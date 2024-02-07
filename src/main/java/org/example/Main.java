@@ -90,7 +90,7 @@ public class Main {
                     if (consultResponse.equals("class")) {
                         System.out.println("Insert purchase class");
                         String classPurchase = sc.next();
-                        Purchase.getPurchaseByClass(classPurchase, userNameScanner);
+                        PurchaseMethods.getPurchaseByClass(classPurchase, userNameScanner);
                         return;
                     }
                     if (consultResponse.equals("date")) {

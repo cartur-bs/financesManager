@@ -30,32 +30,6 @@ public class Purchase {
                 purchaseClass + ", purchasePrice= " + purchasePrice + '}';
     }
 
-    public static void getPurchaseByClass(String purchaseClass, String userName) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
-        EntityManager em = emf.createEntityManager();
-        String hql = "FROM Purchase WHERE purchaseClass = :purchaseClass and userName = :userName";
-        try {
-            em.getTransaction().begin();
-            Query hqlQuery = em.createQuery(hql);
-            hqlQuery.setParameter("purchaseClass", purchaseClass);
-            hqlQuery.setParameter("userName", userName);
-            List<Purchase> resultList = hqlQuery.getResultList();
-            em.getTransaction().commit();
-            if(resultList.isEmpty()){
-                System.out.println("No purchases with this class were found.");
-            }
-            for (Purchase entity : resultList) {
-                System.out.println(entity);
-            }
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }
 
     public static void getPurchaseByDate(LocalDate purchaseDate, String userName) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
