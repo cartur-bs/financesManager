@@ -17,7 +17,7 @@ public class PurchaseTest {
     private EntityManager em;
     @Test
     public void insertNewPurchase(){
-        emf = Persistence.createEntityManagerFactory("expManager");
+         emf = Persistence.createEntityManagerFactory("expManager");
         em = emf.createEntityManager();
         em.getTransaction().begin();
         LocalDate date = LocalDate.of(2024, 2, 1);

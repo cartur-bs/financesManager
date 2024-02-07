@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.entities.Purchase;
 import org.example.entities.User;
+import org.example.services.UserMethods;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -37,7 +38,7 @@ public class Main {
                 return;
             } else {
                 User newUser = new User(userNameScannerCreate, passwordScannerCreate);
-                User.createUser(newUser);
+                UserMethods.createUser(newUser);
                 System.out.println("Your profile was created, " +userNameScannerCreate +", welcome to finances4U");
             }
         }
@@ -47,7 +48,7 @@ public class Main {
             System.out.println("Insert your password");
             String passwordScannerAccess = sc.next();
 
-            if (!User.gettingUser(userNameScanner, passwordScannerAccess)) {
+            if (!UserMethods.gettingUser(userNameScanner, passwordScannerAccess)) {
                 System.out.println("Wrong user name or password, please try again.");
                 return;
             }
