@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.entities.Purchase;
 import org.example.entities.User;
+import org.example.services.PurchaseMethods;
 import org.example.services.UserMethods;
 
 import java.sql.SQLException;
@@ -74,7 +75,7 @@ public class Main {
                         System.out.println("Insert the value of your purchase(ex.: 10.99)");
                         double purchaseValueScanner = sc.nextDouble();
                         Purchase newPurchase = new Purchase(userNameScanner, formattedDate, purchaseClassScanner, purchaseValueScanner);
-                        newPurchase.insertPurchase(newPurchase);
+                        PurchaseMethods.insertPurchase(newPurchase);
                         System.out.println("Insertion completed successfully!");
                         return; //exits the function and doesn't display the else
                     } catch (InputMismatchException e) {

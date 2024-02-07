@@ -30,15 +30,6 @@ public class Purchase {
                 purchaseClass + ", purchasePrice= " + purchasePrice + '}';
     }
 
-    public void insertPurchase(Purchase newPurchase) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(newPurchase);
-        em.getTransaction().commit();
-        em.close();
-    }
-
     public static void getPurchaseByClass(String purchaseClass, String userName) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("expManager");
         EntityManager em = emf.createEntityManager();
